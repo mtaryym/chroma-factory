@@ -1,0 +1,1115 @@
+/* =========================================
+   1. FUENTES Y VARIABLES
+========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --gummy: #76d3db;
+  --lolipop: #da4849;
+  --cloud: #f7f6e4;
+  --ink: #292b45;
+  --white: #ffffff;
+  --yellow: #f3cf78;
+
+  --font-title: 'Unbounded', sans-serif;
+  --font-text: Helvetica, Arial, sans-serif;
+
+  --radius: 22px;
+  --shadow: 0 12px 30px rgba(41, 43, 69, 0.09);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-text);
+  background: var(--cloud);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* =========================================
+   2. NAVEGACIÓN
+========================================= */
+
+.navbar {
+  width: 100%;
+  min-height: 85px;
+  padding: 18px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  background: var(--cloud);
+  position: relative;
+  z-index: 10;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-title);
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.logo-image {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.logo-dot {
+  color: var(--lolipop);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--lolipop);
+}
+
+.nav-button {
+  background: var(--ink);
+  color: white;
+  padding: 13px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.nav-button:hover {
+  background: var(--lolipop);
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   3. BOTONES
+========================================= */
+
+.primary-button,
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  transition: 0.3s;
+}
+
+.primary-button {
+  background: var(--lolipop);
+  color: white;
+}
+
+.primary-button:hover {
+  background: var(--ink);
+  transform: translateY(-3px);
+}
+
+.secondary-button {
+  border: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+.secondary-button:hover {
+  background: var(--gummy);
+  border-color: var(--gummy);
+}
+
+/* =========================================
+   4. PORTADA PRINCIPAL
+========================================= */
+
+.hero {
+  min-height: 600px;
+  padding: 80px 9%;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 50px;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: var(--lolipop);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(35px, 4.5vw, 65px);
+  line-height: 1.3;
+  letter-spacing: -2px;
+  margin-bottom: 25px;
+}
+
+.hero h1 span,
+.section-heading h2 span,
+.about-content h2 span {
+  color: var(--lolipop);
+}
+
+.hero-content > p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #66677b;
+  max-width: 490px;
+  margin-bottom: 30px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.hero-note {
+  margin-top: 35px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #747487;
+}
+
+.hero-note span {
+  color: var(--lolipop);
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+/* Decoración de portada */
+
+.hero-art {
+  min-height: 440px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--gummy);
+  border-radius: 45% 55% 40% 60% / 55% 40% 60% 45%;
+}
+
+.poster {
+  width: 220px;
+  height: 290px;
+  position: absolute;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow);
+}
+
+.poster-back {
+  background: var(--yellow);
+  color: var(--ink);
+  transform: rotate(-12deg) translate(-55px, -5px);
+  z-index: 1;
+}
+
+.poster-back strong {
+  font-family: var(--font-title);
+  font-size: 30px;
+}
+
+.poster-front {
+  background: var(--lolipop);
+  color: white;
+  transform: rotate(8deg) translate(45px, 5px);
+  z-index: 2;
+}
+
+.poster-tag,
+.poster-bottom {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.poster-front h2 {
+  font-family: var(--font-title);
+  font-size: 30px;
+  line-height: 1.2;
+  z-index: 2;
+}
+
+.poster-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--gummy);
+  position: absolute;
+  right: 15px;
+  bottom: 65px;
+}
+
+.floating-label {
+  position: absolute;
+  bottom: 25px;
+  left: 5px;
+  background: white;
+  padding: 13px 20px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: var(--shadow);
+  z-index: 3;
+}
+
+.art-decoration {
+  position: absolute;
+  font-size: 50px;
+  color: white;
+}
+
+.decoration-one {
+  top: 25px;
+  right: 35px;
+}
+
+.decoration-two {
+  left: 30px;
+  bottom: 45px;
+}
+
+/* =========================================
+   5. CATÁLOGO
+========================================= */
+
+.catalog-section {
+  padding: 100px 9%;
+  background: white;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.section-heading h2,
+.about-content h2 {
+  font-family: var(--font-title);
+  font-size: clamp(27px, 3.4vw, 43px);
+  line-height: 1.4;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.section-heading p {
+  color: #747487;
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+.catalog-count {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #858598;
+  white-space: nowrap;
+  padding-bottom: 8px;
+}
+
+/* =========================================
+   6. FILTROS DEL CATÁLOGO
+========================================= */
+
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 35px;
+}
+
+.filter-button {
+  padding: 11px 18px;
+  border: 1px solid #e7e7df;
+  border-radius: 25px;
+  background: white;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.filter-button:hover {
+  background: var(--gummy);
+  border-color: var(--gummy);
+}
+
+.filter-button.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: white;
+}
+
+/* =========================================
+   7. TARJETAS DEL CATÁLOGO
+========================================= */
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 27px;
+}
+
+.design-card {
+  border: 1px solid #eeeeea;
+  border-radius: 23px;
+  overflow: hidden;
+  background: white;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  outline: none;
+}
+
+.design-card:hover {
+  transform: scale(1.035);
+  box-shadow: var(--shadow);
+}
+
+.design-card:focus-visible {
+  outline: 3px solid var(--gummy);
+  outline-offset: 4px;
+}
+
+/* =========================================
+   8. VISTAS PREVIAS DE LAS DIEZ PLANTILLAS
+========================================= */
+
+.design-preview {
+  width: 100%;
+  height: 290px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: var(--cloud);
+}
+
+.template-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 12px;
+  transition: transform 0.35s ease;
+}
+
+.design-card:hover .template-image {
+  transform: scale(1.04);
+}
+
+.preview-placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 12px;
+  padding: 20px;
+  text-align: center;
+  background: var(--gummy);
+  color: var(--ink);
+}
+
+.preview-placeholder span {
+  font-size: 42px;
+  color: var(--lolipop);
+}
+
+.preview-placeholder strong {
+  font-family: var(--font-title);
+  font-size: 15px;
+}
+
+.preview-placeholder small {
+  font-size: 12px;
+  line-height: 1.5;
+  max-width: 220px;
+}
+
+/* =========================================
+   9. INFORMACIÓN DE LAS TARJETAS
+========================================= */
+
+.design-info {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.design-category {
+  color: var(--lolipop);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.design-info h3 {
+  font-family: var(--font-title);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+.design-info p {
+  font-size: 13px;
+  color: #77778a;
+  line-height: 1.6;
+}
+
+.design-explore {
+  color: var(--lolipop);
+  font-size: 13px;
+  font-weight: 800;
+  align-self: flex-start;
+}
+
+.design-card:hover .design-explore {
+  color: var(--ink);
+}
+
+/* =========================================
+   10. VENTANA EMERGENTE
+========================================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  padding: 25px;
+  background: rgba(25, 27, 45, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease;
+}
+
+.design-modal {
+  width: 100%;
+  max-width: 850px;
+  background: white;
+  border-radius: 24px;
+  padding: 35px;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 35px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: modalIn 0.25s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: var(--cloud);
+  color: var(--ink);
+  font-size: 25px;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: var(--lolipop);
+  color: white;
+}
+
+.modal-preview {
+  min-height: 320px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.modal-preview .design-preview {
+  height: 100%;
+  min-height: 320px;
+}
+
+.modal-content {
+  align-self: center;
+  padding: 15px 0;
+}
+
+.modal-content h2 {
+  font-family: var(--font-title);
+  font-size: 23px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.modal-description {
+  color: #77778a;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.design-details {
+  margin: 25px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #eeeeea;
+}
+
+.detail-item span {
+  color: #858598;
+  font-size: 12px;
+}
+
+.detail-item strong {
+  font-size: 14px;
+}
+
+.modal-edit {
+  width: 100%;
+}
+
+.modal-note {
+  text-align: center;
+  font-size: 11px;
+  color: #858598;
+  margin-top: 14px;
+}
+
+/* ANIMACIONES DE LA VENTANA */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================
+   10.1. ADAPTACIÓN DE IMÁGENES Y MODAL
+========================================= */
+
+@media (max-width: 700px) {
+
+  .design-preview {
+    height: 280px;
+  }
+
+  .design-modal {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 25px;
+    margin: auto 0;
+  }
+
+  .modal-preview,
+  .modal-preview .design-preview {
+    min-height: 230px;
+  }
+
+  .modal-content {
+    padding: 0;
+  }
+
+  .modal-content h2 {
+    font-size: 19px;
+  }
+
+}
+
+@media (max-width: 380px) {
+
+  .design-modal {
+    padding: 20px;
+  }
+
+}
+
+/* =========================================
+   10.2. ACCESIBILIDAD
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+}
+
+/* =========================================
+   11. SECCIÓN NOSOTROS
+========================================= */
+
+.about-section {
+  padding: 100px 12%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px;
+  background: var(--ink);
+  color: white;
+}
+
+.about-symbol {
+  min-width: 180px;
+  height: 180px;
+  display: grid;
+  place-items: center;
+  background: var(--gummy);
+  color: var(--ink);
+  font-size: 110px;
+  border-radius: 40% 60% 55% 45%;
+}
+
+.about-content {
+  max-width: 580px;
+}
+
+.about-content h2 {
+  color: white;
+}
+
+.about-content p {
+  color: #d2d2dd;
+  font-size: 15px;
+  line-height: 1.9;
+  margin: 20px 0 30px;
+}
+
+.about-button {
+  display: inline-block;
+  padding: 14px 22px;
+  background: var(--yellow);
+  color: var(--ink);
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 800;
+  transition: 0.3s;
+}
+
+.about-button:hover {
+  background: var(--gummy);
+  transform: translateY(-3px);
+}
+
+/* =========================================
+   12. CONTACTO
+========================================= */
+
+.contact-section {
+  padding: 100px 9%;
+  background: var(--cloud);
+}
+
+.contact-heading {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.contact-heading h2 {
+  font-family: var(--font-title);
+  font-size: clamp(25px, 3.2vw, 40px);
+  line-height: 1.4;
+  margin-bottom: 15px;
+}
+
+.contact-heading p {
+  font-size: 14px;
+  color: #77778a;
+  line-height: 1.7;
+}
+
+.contact-form {
+  max-width: 750px;
+  margin: auto;
+  padding: 35px;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #e5e5df;
+  background: var(--cloud);
+  border-radius: 10px;
+  outline: none;
+  font-size: 13px;
+  resize: vertical;
+  transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--gummy);
+  box-shadow: 0 0 0 3px rgba(118, 211, 219, 0.2);
+}
+
+.contact-form .primary-button {
+  width: 100%;
+}
+
+/* =========================================
+   13. FOOTER
+========================================= */
+
+.footer {
+  padding: 40px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  background: white;
+}
+
+.footer-logo {
+  font-size: 16px;
+}
+
+.footer p {
+  font-size: 13px;
+  color: #77778a;
+}
+
+.copyright {
+  font-size: 11px;
+  color: #9999a5;
+}
+
+/* =========================================
+   14. TABLETS
+========================================= */
+
+@media (max-width: 1000px) {
+
+  .navbar {
+    padding: 18px 5%;
+  }
+
+  .nav-links {
+    gap: 17px;
+  }
+
+  .hero {
+    padding: 70px 6%;
+    gap: 30px;
+  }
+
+  .hero-art {
+    min-height: 370px;
+  }
+
+  .poster {
+    width: 180px;
+    height: 250px;
+  }
+
+  .catalog-section {
+    padding: 80px 6%;
+  }
+
+  .catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-section {
+    padding: 80px 7%;
+    gap: 35px;
+  }
+}
+
+/* =========================================
+   15. CELULARES
+========================================= */
+
+@media (max-width: 700px) {
+
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 17px;
+    padding: 20px 5%;
+  }
+
+  .logo {
+    font-size: 16px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+  }
+
+  .nav-button {
+    display: none;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 60px 7%;
+    text-align: center;
+  }
+
+  .hero-content {
+    margin: auto;
+  }
+
+  .hero-content > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-art {
+    width: 100%;
+    max-width: 430px;
+    min-height: 350px;
+    margin: 20px auto 0;
+  }
+
+  .poster {
+    width: 170px;
+    height: 230px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .design-preview {
+    height: 280px;
+  }
+
+  .design-card:hover {
+    transform: scale(1.015);
+  }
+
+  .category-filters {
+    gap: 8px;
+  }
+
+  .filter-button {
+    padding: 10px 13px;
+    font-size: 11px;
+  }
+
+  .design-modal {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 25px;
+    margin: auto 0;
+  }
+
+  .modal-preview,
+  .modal-preview .design-preview {
+    min-height: 230px;
+  }
+
+  .modal-content {
+    padding: 0;
+  }
+
+  .modal-content h2 {
+    font-size: 19px;
+  }
+
+  .about-section {
+    flex-direction: column;
+    text-align: center;
+    padding: 75px 8%;
+  }
+
+  .about-symbol {
+    min-width: 140px;
+    width: 140px;
+    height: 140px;
+    font-size: 85px;
+  }
+
+  .contact-section {
+    padding: 75px 6%;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .contact-form {
+    padding: 25px 20px;
+  }
+
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    padding: 35px 6%;
+  }
+}
+
+/* =========================================
+   16. CELULARES PEQUEÑOS
+========================================= */
+
+@media (max-width: 380px) {
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .hero-actions a {
+    width: 100%;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+  }
+
+  .design-modal {
+    padding: 20px;
+  }
+
+  .sample-poster {
+    width: 155px;
+  }
+
+}
+
+/* =========================================
+   17. PREFERENCIAS DE MOVIMIENTO
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+}
