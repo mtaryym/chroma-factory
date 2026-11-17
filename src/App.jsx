@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Admin from "./Admin.jsx";
+import Chatbot from "./Chatbot.jsx";
+import Acceso from "./Acceso.jsx";
+import Carrito from "./Carrito.jsx";
 
 // ==========================================
 // 1. INFORMACIÓN DE LAS PLANTILLAS: ITEMS
@@ -91,12 +95,11 @@ const diseños = [
 // 2. BARRA DE NAVEGACIÓN
 // ==========================================
 
-function Navbar() {
+
+function Navbar({ usuario, abrirAcceso, abrirCarrito, cerrarSesion }) {
   return (
     <header className="navbar">
-
       <a href="#inicio" className="logo">
-
         <img
           src={`${import.meta.env.BASE_URL}assets/logo/logo.png`}
           alt="Logo Chroma Factory"
@@ -105,11 +108,9 @@ function Navbar() {
             event.currentTarget.style.display = "none";
           }}
         />
-
         <span>
           Chroma Factory<span className="logo-dot">.</span>
         </span>
-
       </a>
 
       <nav className="nav-links">
@@ -119,10 +120,33 @@ function Navbar() {
         <a href="#contacto">Contacto</a>
       </nav>
 
-      <a href="#catalogo" className="nav-button">
-        Explorar diseños ↗
-      </a>
+      {usuario ? (
+        <div className="nav-usuario">
+          <button
+            type="button"
+            className="nav-button"
+            onClick={abrirCarrito}
+          >
+            Mi carrito
+          </button>
 
+          <button
+            type="button"
+            className="nav-button"
+            onClick={cerrarSesion}
+          >
+            Salir
+          </button>
+        </div>
+      ) : (
+        <button
+          type="button"
+          className="nav-button"
+          onClick={abrirAcceso}
+        >
+          Iniciar sesión
+        </button>
+      )}
     </header>
   );
 }
@@ -232,7 +256,7 @@ function DesignPreview({ diseño }) {
       {imagenDisponible ? (
         <img
           src={`${import.meta.env.BASE_URL}assets/plantillas/${diseño.imagen}`}
-          alt={`Vista previa de ${diseño.titulo}`}
+          alt={`Vista previa de ${diseño.nombre}`}
           className="template-image"
           onError={() => setImagenDisponible(false)}
         />
@@ -331,7 +355,8 @@ function ModalDiseno({ diseño, cerrar, editar }) {
 // 6. CATÁLOGO
 // ==========================================
 
-function Catalogo() {
+function Catalogo({alPedirDiseno}) {
+
 
   const [seleccionado, setSeleccionado] = useState(null);
 
@@ -353,13 +378,11 @@ function Catalogo() {
       );
 
   function abrirEditor() {
+  if (!seleccionado) return;
 
-    alert(
-      "¡Plantilla seleccionada! Agregada al carrito."
-    );
-
-    setSeleccionado(null);
-  }
+  alPedirDiseno(seleccionado);
+  setSeleccionado(null);
+}
 
   return (
     <section className="catalog-section" id="catalogo">
@@ -519,7 +542,60 @@ function Nosotros() {
 // 8. SECCIÓN DE CONTACTO
 // ==========================================
 
+
 function Contacto() {
+  const [estado, setEstado] = useState("");
+  const [enviando, setEnviando] = useState(false);
+
+  async function enviarMensaje(event) {
+    event.preventDefault();
+
+    setEnviando(true);
+    setEstado("");
+
+    const formulario = event.currentTarget;
+
+    const datos = new FormData(formulario);
+
+    const contacto = {
+      nombre: datos.get("nombre"),
+      correo: datos.get("correo"),
+      mensaje: datos.get("mensaje"),
+    };
+
+    try {
+      const respuesta = await fetch(
+        "http://localhost:3000/api/contacto",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(contacto),
+        }
+      );
+
+      const resultado = await respuesta.json();
+
+      if (!respuesta.ok) {
+        throw new Error(
+          resultado.mensaje || "No se pudo enviar el mensaje."
+        );
+      }
+
+      setEstado(resultado.mensaje);
+      formulario.reset();
+
+    } catch (error) {
+      setEstado(
+        error.message || "No se pudo conectar con el servidor."
+      );
+
+    } finally {
+      setEnviando(false);
+    }
+  }
+
   return (
     <section className="contact-section" id="contacto">
 
@@ -542,17 +618,7 @@ function Contacto() {
 
       <form
         className="contact-form"
-        onSubmit={(event) => {
-
-          event.preventDefault();
-
-          alert(
-            "Formulario preparado. Próximamente conectaremos el servidor."
-          );
-
-          event.target.reset();
-
-        }}
+        onSubmit={enviarMensaje}
       >
 
         <div className="form-row">
@@ -566,6 +632,7 @@ function Contacto() {
             <input
               type="text"
               id="nombre"
+              name="nombre"
               placeholder="Tu nombre"
               required
             />
@@ -581,6 +648,7 @@ function Contacto() {
             <input
               type="email"
               id="correo"
+              name="correo"
               placeholder="correo@ejemplo.com"
               required
             />
@@ -597,6 +665,7 @@ function Contacto() {
 
           <textarea
             id="mensaje"
+            name="mensaje"
             rows="5"
             placeholder="Me gustaría crear un anuncio para..."
             required
@@ -607,9 +676,16 @@ function Contacto() {
         <button
           type="submit"
           className="primary-button"
+          disabled={enviando}
         >
-          Enviar mensaje →
+          {enviando ? "Enviando..." : "Enviar mensaje →"}
         </button>
+
+        {estado && (
+          <p role="status" className="form-status">
+            {estado}
+          </p>
+        )}
 
       </form>
 
@@ -650,26 +726,210 @@ function Footer() {
 // ==========================================
 
 function App() {
+  const [usuario, setUsuario] = useState(null);
+  const [accesoAbierto, setAccesoAbierto] = useState(false);
+  const [carritoAbierto, setCarritoAbierto] = useState(false);
+  const [diseñoPendiente, setDiseñoPendiente] = useState(null);
+  const [pedidos, setPedidos] = useState([]);
+  const [aviso, setAviso] = useState("");
+
+  // Comprobar si el visitante ya tiene una sesión
+  useEffect(() => {
+    async function comprobarSesion() {
+      try {
+        const respuesta = await fetch(
+          "http://localhost:3000/api/usuarios/sesion",
+          { credentials: "include" }
+        );
+
+        if (!respuesta.ok) return;
+
+        const datos = await respuesta.json();
+        setUsuario(datos.usuario);
+        await cargarPedidos();
+      } catch (error) {
+        console.error("No se pudo comprobar la sesión:", error);
+      }
+    }
+
+    comprobarSesion();
+  }, []);
+
+  // Consultar los pedidos del cliente
+  async function cargarPedidos() {
+    try {
+      const respuesta = await fetch(
+        "http://localhost:3000/api/pedidos",
+        { credentials: "include" }
+      );
+
+      if (!respuesta.ok) return;
+
+      const datos = await respuesta.json();
+      setPedidos(datos.pedidos);
+    } catch (error) {
+      console.error("Error al cargar los pedidos:", error);
+    }
+  }
+
+  // Agregar una plantilla a los pedidos
+  async function guardarPedido(diseño) {
+    try {
+      const respuesta = await fetch(
+        "http://localhost:3000/api/pedidos",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
+            plantillaId: String(diseño.id),
+            nombreDiseno: diseño.nombre,
+            tipo: diseño.tipo,
+            categoria: diseño.categoria,
+            imagen: diseño.imagen,
+          }),
+        }
+      );
+
+      const datos = await respuesta.json();
+
+      if (!respuesta.ok) {
+        throw new Error(datos.mensaje || "No se pudo guardar el pedido.");
+      }
+
+      await cargarPedidos();
+      setAviso("¡Diseño agregado a tus pedidos!");
+      setCarritoAbierto(true);
+    } catch (error) {
+      setAviso(error.message);
+    }
+  }
+
+  // Acción del botón Pedir Diseño
+  function pedirDiseno(diseño) {
+    setAviso("");
+
+    if (usuario) {
+      guardarPedido(diseño);
+    } else {
+      setDiseñoPendiente(diseño);
+      setAccesoAbierto(true);
+    }
+  }
+
+  // Cuando el cliente inicia sesión
+  async function iniciarSesion(datosUsuario) {
+    setUsuario(datosUsuario);
+    setAccesoAbierto(false);
+
+    await cargarPedidos();
+
+    if (diseñoPendiente) {
+      await guardarPedido(diseñoPendiente);
+      setDiseñoPendiente(null);
+    }
+  }
+
+  // Eliminar un pedido
+  async function eliminarPedido(id) {
+    try {
+      const respuesta = await fetch(
+        `http://localhost:3000/api/pedidos/${id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      const datos = await respuesta.json();
+
+      if (!respuesta.ok) {
+        throw new Error(datos.mensaje || "No se pudo eliminar.");
+      }
+
+      await cargarPedidos();
+      setAviso("Pedido eliminado correctamente.");
+    } catch (error) {
+      setAviso(error.message);
+    }
+  }
+
+  // Cerrar sesión del cliente
+  async function cerrarSesion() {
+    try {
+      await fetch(
+        "http://localhost:3000/api/usuarios/logout",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      );
+
+      setUsuario(null);
+      setPedidos([]);
+      setCarritoAbierto(false);
+      setAviso("Has cerrado sesión.");
+    } catch (error) {
+      setAviso("No se pudo cerrar la sesión.");
+    }
+  }
+
+  // Mantener el acceso del administrador
+  if (window.location.pathname === "/admin") {
+    return <Admin />;
+  }
 
   return (
     <>
+      <Navbar
+        usuario={usuario}
+        abrirAcceso={() => setAccesoAbierto(true)}
+        abrirCarrito={() => {
+          cargarPedidos();
+          setCarritoAbierto(true);
+        }}
+        cerrarSesion={cerrarSesion}
+      />
 
-      <Navbar />
+      {aviso && (
+        <p className="pedido-aviso" role="status">
+          {aviso}
+        </p>
+      )}
 
       <main>
-
         <Hero />
 
-        <Catalogo />
+        <Catalogo alPedirDiseno={pedirDiseno} />
 
         <Nosotros />
 
         <Contacto />
-
       </main>
 
       <Footer />
 
+      <Chatbot />
+
+      {accesoAbierto && (
+        <Acceso
+          alIniciarSesion={iniciarSesion}
+          alCerrar={() => {
+            setAccesoAbierto(false);
+            setDiseñoPendiente(null);
+          }}
+        />
+      )}
+
+      {carritoAbierto && usuario && (
+        <Carrito
+          pedidos={pedidos}
+          cerrar={() => setCarritoAbierto(false)}
+          eliminarPedido={eliminarPedido}
+        />
+      )}
     </>
   );
 }
