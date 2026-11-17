@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { API } from "./config";
 
-const API = "http://localhost:3000/api/admin";
+const API_ADMIN = API + "/api/admin";
 
 function Admin() {
   const [correo, setCorreo] = useState("");
@@ -12,7 +13,7 @@ function Admin() {
   const [mensaje, setMensaje] = useState("");
 
   async function cargarContactos() {
-    const respuesta = await fetch(`${API}/contactos`, {
+    const respuesta = await fetch(`${API_ADMIN}/contactos`, {
       credentials: "include",
     });
 
@@ -27,7 +28,7 @@ function Admin() {
   useEffect(() => {
     async function comprobarSesion() {
       try {
-        const respuesta = await fetch(`${API}/sesion`, {
+        const respuesta = await fetch(`${API_ADMIN}/sesion`, {
           credentials: "include",
         });
 
@@ -51,7 +52,7 @@ function Admin() {
     setMensaje("");
 
     try {
-      const respuesta = await fetch(`${API}/login`, {
+      const respuesta = await fetch(`${API_ADMIN}/login`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -83,7 +84,7 @@ function Admin() {
 
   async function cerrarSesion() {
     try {
-      await fetch(`${API}/logout`, {
+      await fetch(`${API_ADMIN}/logout`, {
         method: "POST",
         credentials: "include",
       });

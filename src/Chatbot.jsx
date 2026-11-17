@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API } from "./config";
 
 function Chatbot() {
   const [abierto, setAbierto] = useState(false);
@@ -27,7 +28,7 @@ function Chatbot() {
     setCargando(true);
 
     try {
-      const respuesta = await fetch("http://localhost:3000/api/chatbot", {
+      const respuesta = await fetch(API + "/api/chatbot", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API } from "./config";
 
 function Acceso({ alIniciarSesion, alCerrar }) {
   const [modo, setModo] = useState("login");
@@ -21,8 +22,8 @@ function Acceso({ alIniciarSesion, alCerrar }) {
     setCargando(true);
 
     try {
-      const respuesta = await fetch(
-        `http://localhost:3000/api/usuarios/${modo === "registro" ? "registro" : "login"}`,
+      const respuesta = await fetch(API +
+        `/api/usuarios/${modo === "registro" ? "registro" : "login"}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -3,6 +3,7 @@ import Admin from "./Admin.jsx";
 import Chatbot from "./Chatbot.jsx";
 import Acceso from "./Acceso.jsx";
 import Carrito from "./Carrito.jsx";
+import { API } from "./config";
 
 // ==========================================
 // 1. INFORMACIÓN DE LAS PLANTILLAS: ITEMS
@@ -564,8 +565,8 @@ function Contacto() {
     };
 
     try {
-      const respuesta = await fetch(
-        "http://localhost:3000/api/contacto",
+      const respuesta = await fetch(API +
+        "/api/contacto",
         {
           method: "POST",
           headers: {
@@ -737,8 +738,8 @@ function App() {
   useEffect(() => {
     async function comprobarSesion() {
       try {
-        const respuesta = await fetch(
-          "http://localhost:3000/api/usuarios/sesion",
+        const respuesta = await fetch(API +
+          "/api/usuarios/sesion",
           { credentials: "include" }
         );
 
@@ -758,8 +759,8 @@ function App() {
   // Consultar los pedidos del cliente
   async function cargarPedidos() {
     try {
-      const respuesta = await fetch(
-        "http://localhost:3000/api/pedidos",
+      const respuesta = await fetch(API +
+        "/api/pedidos",
         { credentials: "include" }
       );
 
@@ -835,8 +836,8 @@ function App() {
   // Eliminar un pedido
   async function eliminarPedido(id) {
     try {
-      const respuesta = await fetch(
-        `http://localhost:3000/api/pedidos/${id}`,
+      const respuesta = await fetch(API +
+        /api/pedidos/$``,
         {
           method: "DELETE",
           credentials: "include",
@@ -859,8 +860,8 @@ function App() {
   // Cerrar sesión del cliente
   async function cerrarSesion() {
     try {
-      await fetch(
-        "http://localhost:3000/api/usuarios/logout",
+      await fetch(API +
+        "/api/usuarios/logout",
         {
           method: "POST",
           credentials: "include",
