@@ -7,83 +7,83 @@ import React, { useState } from "react";
 const diseños = [
   {
     id: 1,
-    nombre: "Fresh Business",
+    nombre: "Nuevos Sabores: Donas",
     tipo: "Poster",
     categoria: "Alimentos",
-    descripcion: "Diseño publicitario para promocionar productos alimenticios.",
-    imagen: "plantilla-01.jpg"
+    descripcion: "Diseño publicitario de donas.",
+    imagen: "plantilla-01.jpeg"
   },
   {
     id: 2,
-    nombre: "Sweet Moments",
+    nombre: "Helados de Fresa",
     tipo: "Poster",
     categoria: "Alimentos",
-    descripcion: "Plantilla para cafeterías, pastelerías y emprendimientos gastronómicos.",
-    imagen: "plantilla-02.jpg"
+    descripcion: "Plantilla para pastelerías y heladerias",
+    imagen: "plantilla-07.jpeg"
   },
   {
     id: 3,
-    nombre: "Daily Fresh",
+    nombre: "Ingredientes Naturales",
     tipo: "Banner",
     categoria: "Alimentos",
-    descripcion: "Diseño fresco para promocionar productos y ofertas alimenticias.",
-    imagen: "plantilla-03.jpg"
+    descripcion: "Diseño para promocionar productos y ofertas alimenticia, salsas, etc",
+    imagen: "plantilla-04.jpeg"
   },
   {
     id: 4,
-    nombre: "Taste & Share",
+    nombre: "Sweet Pastries",
     tipo: "Poster",
     categoria: "Alimentos",
-    descripcion: "Una propuesta visual para destacar productos y promociones gastronómicas.",
-    imagen: "plantilla-04.jpg"
+    descripcion: "Una propuesta visual para promocionar venta de pudines.",
+    imagen: "plantilla-09.jpeg"
   },
   {
     id: 5,
-    nombre: "Bakery Bloom",
+    nombre: "Pudín y Café",
     tipo: "Banner",
     categoria: "Alimentos",
     descripcion: "Plantilla para panaderías, reposterías y pequeños negocios de comida.",
-    imagen: "plantilla-05.jpg"
+    imagen: "plantilla-02.jpeg"
   },
   {
     id: 6,
-    nombre: "Urban Style",
+    nombre: "Estilo en tus Botas",
     tipo: "Banner",
     categoria: "Ropa y calzado",
-    descripcion: "Diseño para promocionar colecciones de ropa, zapatos y accesorios.",
-    imagen: "plantilla-06.jpg"
+    descripcion: "Diseño para promocionar nueva colección de botas",
+    imagen: "plantilla-03.jpeg"
   },
   {
     id: 7,
-    nombre: "Color Pop",
+    nombre: "Pasión y Elegancia",
     tipo: "Poster",
     categoria: "Ropa y calzado",
     descripcion: "Una propuesta creativa para destacar prendas y accesorios.",
-    imagen: "plantilla-07.jpg"
+    imagen: "plantilla-08.jpeg"
   },
   {
     id: 8,
-    nombre: "Tech Revolution",
+    nombre: "Renovación Tecnológica",
     tipo: "Poster",
     categoria: "Tecnología",
     descripcion: "Plantilla para promocionar productos tecnológicos.",
-    imagen: "plantilla-08.jpg"
+    imagen: "plantilla-05.jpeg"
   },
   {
     id: 9,
     nombre: "Digital Future",
     tipo: "Banner",
     categoria: "Tecnología",
-    descripcion: "Diseño moderno para destacar productos y servicios digitales.",
-    imagen: "plantilla-09.jpg"
+    descripcion: "Diseño moderno para servicios digitales.",
+    imagen: "plantilla-10.jpeg"
   },
   {
     id: 10,
-    nombre: "Glow & Care",
+    nombre: "Frescura Natural",
     tipo: "Poster",
     categoria: "Cuidado personal",
-    descripcion: "Diseño para promocionar productos de belleza y cuidado personal.",
-    imagen: "plantilla-10.jpg"
+    descripcion: "Diseño para promocionar nuevo shampoo con un aroma fresco a manza",
+    imagen: "plantilla-06.jpeg"
   }
 ];
 
@@ -98,7 +98,7 @@ function Navbar() {
       <a href="#inicio" className="logo">
 
         <img
-          src={`${import.meta.env.BASE_URL}imagenes/logo/logo.png`}
+          src={`${import.meta.env.BASE_URL}assets/logo/logo.png`}
           alt="Logo Chroma Factory"
           className="logo-image"
           onError={(event) => {
@@ -229,36 +229,18 @@ function DesignPreview({ diseño }) {
 
   return (
     <div className="design-preview">
-
       {imagenDisponible ? (
-
         <img
-          src={
-            `${import.meta.env.BASE_URL}imagenes/plantillas/${diseño.imagen}`
-          }
-          alt={`Vista previa de ${diseño.nombre}`}
+          src={`${import.meta.env.BASE_URL}assets/plantillas/${diseño.imagen}`}
+          alt={`Vista previa de ${diseño.titulo}`}
           className="template-image"
           onError={() => setImagenDisponible(false)}
         />
-
       ) : (
-
-        <div className="preview-placeholder">
-
-          <span>✳</span>
-
-          <strong>
-            Vista previa
-          </strong>
-
-          <small>
-            Agrega tu imagen en la carpeta de plantillas
-          </small>
-
+        <div className="image-placeholder">
+          Imagen no disponible
         </div>
-
       )}
-
     </div>
   );
 }
@@ -329,7 +311,7 @@ function ModalDiseno({ diseño, cerrar, editar }) {
             className="primary-button modal-edit"
             onClick={editar}
           >
-            Editar diseño →
+            Pedir Diseño →
           </button>
 
           <p className="modal-note">
@@ -367,13 +349,13 @@ function Catalogo() {
     categoriaActiva === "Todos"
       ? diseños
       : diseños.filter(
-          (diseño) => diseño.categoria === categoriaActiva
-        );
+        (diseño) => diseño.categoria === categoriaActiva
+      );
 
   function abrirEditor() {
 
     alert(
-      "¡Plantilla seleccionada! Próximamente conectaremos el editor de diseños."
+      "¡Plantilla seleccionada! Agregada al carrito."
     );
 
     setSeleccionado(null);
