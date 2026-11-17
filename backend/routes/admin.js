@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import Contact from "../models/Contact.js";
+import Contact from "../models/contact.js";
 import protegerAdmin from "../middleware/auth.js";
 
 const router = express.Router();
