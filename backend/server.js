@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 import conectarDB from "./config/database.js";
-import Contact from "./models/Contact.js";
+import Contact from "./models/contact.js";
 import adminRoutes from "./routes/admin.js";
 
 dotenv.config();
