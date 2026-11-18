@@ -776,8 +776,8 @@ function App() {
   // Agregar una plantilla a los pedidos
   async function guardarPedido(diseño) {
     try {
-      const respuesta = await fetch(
-        "http://localhost:3000/api/pedidos",
+      const respuesta = await fetch(API +
+        "/api/pedidos",
         {
           method: "POST",
           headers: {
