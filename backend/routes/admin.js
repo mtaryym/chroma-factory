@@ -71,12 +71,11 @@ router.get("/sesion", protegerAdmin, (req, res) => {
 
 // CERRAR SESIÓN
 router.post("/logout", protegerAdmin, (req, res) => {
-  res.clearCookie("adminToken", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
-  });
+ res.cookie("adminToken", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none"
+});
 
   res.json({
     mensaje: "Sesión cerrada correctamente.",

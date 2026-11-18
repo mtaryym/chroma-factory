@@ -162,11 +162,10 @@ router.get("/sesion", async (req, res) => {
 
 // CERRAR SESIÓN
 router.post("/logout", (req, res) => {
-  res.clearCookie("userToken", {
+  res.cookie("userToken", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    path: "/",
+    secure: true,
+    sameSite: "none"
   });
 
   return res.json({
