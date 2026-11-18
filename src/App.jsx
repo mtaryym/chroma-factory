@@ -356,7 +356,7 @@ function ModalDiseno({ diseño, cerrar, editar }) {
 // 6. CATÁLOGO
 // ==========================================
 
-function Catalogo({alPedirDiseno}) {
+function Catalogo({ alPedirDiseno }) {
 
 
   const [seleccionado, setSeleccionado] = useState(null);
@@ -379,11 +379,11 @@ function Catalogo({alPedirDiseno}) {
       );
 
   function abrirEditor() {
-  if (!seleccionado) return;
+    if (!seleccionado) return;
 
-  alPedirDiseno(seleccionado);
-  setSeleccionado(null);
-}
+    alPedirDiseno(seleccionado);
+    setSeleccionado(null);
+  }
 
   return (
     <section className="catalog-section" id="catalogo">
@@ -836,13 +836,10 @@ function App() {
   // Eliminar un pedido
   async function eliminarPedido(id) {
     try {
-      const respuesta = await fetch(API +
-        /api/pedidos/$``,
-        {
-          method: "DELETE",
-          credentials: "include",
-        }
-      );
+      const respuesta = await fetch(`${API}/api/pedidos/${id}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
 
       const datos = await respuesta.json();
 
