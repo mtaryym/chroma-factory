@@ -101,8 +101,8 @@ router.post("/login", async (req, res) => {
 
     res.cookie("userToken", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000,
       path: "/",
     });
@@ -162,15 +162,14 @@ router.get("/sesion", async (req, res) => {
 
 // CERRAR SESIÓN
 router.post("/logout", (req, res) => {
-  res.cookie("userToken", token, {
+  res.clearCookie("userToken", {
     httpOnly: true,
     secure: true,
-    sameSite: "none"
+    sameSite: "none",
+    path: "/",
   });
 
   return res.json({
     mensaje: "Sesión cerrada correctamente.",
   });
 });
-
-export default router;
