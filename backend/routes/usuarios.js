@@ -173,3 +173,5 @@ router.post("/logout", (req, res) => {
     mensaje: "Sesión cerrada correctamente.",
   });
 });
+
+export default router;
